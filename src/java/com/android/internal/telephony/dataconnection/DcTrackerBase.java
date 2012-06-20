@@ -1464,15 +1464,12 @@ public abstract class DcTrackerBase extends Handler {
 
     protected void onSetPolicyDataEnabled(boolean enabled) {
         synchronized (mDataEnabledLock) {
-            final boolean prevEnabled = getAnyDataEnabled();
             if (sPolicyDataEnabled != enabled) {
                 sPolicyDataEnabled = enabled;
-                if (prevEnabled != getAnyDataEnabled()) {
-                    if (!prevEnabled) {
-                        onTrySetupData(Phone.REASON_DATA_ENABLED);
-                    } else {
-                        onCleanUpAllConnections(Phone.REASON_DATA_SPECIFIC_DISABLED);
-                    }
+                if (enabled) {
+                    onTrySetupData(Phone.REASON_DATA_ENABLED);
+                } else {
+                    onCleanUpAllConnections(Phone.REASON_DATA_SPECIFIC_DISABLED);
                 }
             }
         }
