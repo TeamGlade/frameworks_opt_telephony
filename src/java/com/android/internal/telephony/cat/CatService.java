@@ -363,6 +363,7 @@ public class CatService extends Handler implements AppInterface {
         CatLog.d(this, cmdParams.getCommandType().name());
 
         CharSequence message;
+        ResultCode resultCode;
         CatCmdMessage cmdMsg = new CatCmdMessage(cmdParams);
         switch (cmdParams.getCommandType()) {
             case SET_UP_MENU:
@@ -371,9 +372,17 @@ public class CatService extends Handler implements AppInterface {
                 } else {
                     mMenuCmd = cmdMsg;
                 }
-                sendTerminalResponse(cmdParams.mCmdDet, ResultCode.OK, false, 0, null);
+                resultCode = cmdParams.mLoadIconFailed ? ResultCode.PRFRMD_ICON_NOT_DISPLAYED
+                                                                            : ResultCode.OK;
+                sendTerminalResponse(cmdParams.mCmdDet, resultCode, false, 0, null);
                 break;
             case DISPLAY_TEXT:
+                // when application is not required to respond, send an immediate response.
+                if (!cmdMsg.geTextMessage().responseNeeded) {
+                    resultCode = cmdParams.mLoadIconFailed ? ResultCode.PRFRMD_ICON_NOT_DISPLAYED
+                                                                            : ResultCode.OK;
+                    sendTerminalResponse(cmdParams.mCmdDet, resultCode, false, 0, null);
+                }
                 break;
             case REFRESH:
                 // ME side only handles refresh commands which meant to remove IDLE
@@ -381,7 +390,9 @@ public class CatService extends Handler implements AppInterface {
                 cmdParams.mCmdDet.typeOfCommand = CommandType.SET_UP_IDLE_MODE_TEXT.value();
                 break;
             case SET_UP_IDLE_MODE_TEXT:
-                sendTerminalResponse(cmdParams.mCmdDet, ResultCode.OK, false, 0, null);
+                resultCode = cmdParams.mLoadIconFailed ? ResultCode.PRFRMD_ICON_NOT_DISPLAYED
+                                                                            : ResultCode.OK;
+                sendTerminalResponse(cmdParams.mCmdDet,resultCode, false, 0, null);
                 break;
             case SET_UP_EVENT_LIST:
                 if (isSupportedSetupEventCommand(cmdMsg)) {

@@ -153,6 +153,7 @@ class IconLoader extends Handler {
                     readClut();
                 } else {
                     CatLog.d(this, "else  /postIcon ");
+                    // post null icon back to the caller.
                     postIcon();
                 }
                 break;
