@@ -45,7 +45,11 @@ public final class CsimFileHandler extends IccFileHandler implements IccConstant
         case EF_CSIM_CDMAHOME:
         case EF_CSIM_EPRL:
         case EF_CSIM_MIPUPP:
+        case EF_CSIM_PRL:
             return MF_SIM + DF_ADF;
+        case EF_CSIM_MSPL:
+        case EF_CSIM_MLPL:
+            return MF_SIM + DF_TELECOM + DF_MMSS;
         }
         String path = getCommonIccEFPath(efid);
         if (path == null) {
