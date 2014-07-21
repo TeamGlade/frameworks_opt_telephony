@@ -382,6 +382,8 @@ public class CdmaLteServiceStateTracker extends CdmaServiceStateTracker {
         TelephonyManager tm =
                 (TelephonyManager) mPhone.getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
+        boolean needNotifyData = (mSS.getCssIndicator() != mNewSS.getCssIndicator());
+
         if (DBG) {
             log("pollStateDone:"
                 + " hasRegistered=" + hasRegistered
@@ -538,6 +540,10 @@ public class CdmaLteServiceStateTracker extends CdmaServiceStateTracker {
 
         if ((hasCdmaDataConnectionChanged || hasDataRadioTechnologyChanged)) {
             notifyDataRegStateRilRadioTechnologyChanged();
+            needNotifyData = true;
+        }
+
+        if (needNotifyData) {
             mPhone.notifyDataConnection(null);
         }
 
