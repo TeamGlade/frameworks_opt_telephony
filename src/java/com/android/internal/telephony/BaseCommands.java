@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.AsyncResult;
 import android.telephony.RadioAccessFamily;
 import android.telephony.TelephonyManager;
+import com.android.internal.telephony.dataconnection.DataProfile;
 
 import com.android.internal.telephony.RadioCapability;
 
@@ -854,6 +855,9 @@ public abstract class BaseCommands implements CommandsInterface {
 
     public void setUiccSubscription(int slotId, int appIndex, int subId, int subStatus,
             Message response) {
+    }
+
+    public void setDataProfile(DataProfile[] dps, Message result) {
     }
 
     public void setDataAllowed(boolean allowed, Message response) {
