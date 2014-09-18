@@ -1190,6 +1190,11 @@ public class CdmaServiceStateTracker extends ServiceStateTracker {
         TelephonyManager tm =
                 (TelephonyManager) mPhone.getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
+        if (mCi.getRadioState() == CommandsInterface.RadioState.RADIO_OFF) {
+            log("set service state as POWER_OFF");
+            mNewSS.setStateOff();
+        }
+
         // Add an event log when connection state changes
         if (mSS.getVoiceRegState() != mNewSS.getVoiceRegState() ||
                 mSS.getDataRegState() != mNewSS.getDataRegState()) {
