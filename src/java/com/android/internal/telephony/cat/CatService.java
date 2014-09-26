@@ -252,8 +252,10 @@ public class CatService extends Handler implements AppInterface {
                 mUiccController.unregisterForIccChanged(this);
                 mUiccController = null;
             }
-            mMsgDecoder.dispose();
-            mMsgDecoder = null;
+            if (mMsgDecoder != null) {
+		mMsgDecoder.dispose();
+		mMsgDecoder = null;
+            }
             mHandlerThread.quit();
             mHandlerThread = null;
             removeCallbacksAndMessages(null);
