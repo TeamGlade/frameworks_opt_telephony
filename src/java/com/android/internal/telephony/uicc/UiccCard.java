@@ -199,7 +199,7 @@ public class UiccCard {
             }
         } else {
             if (mCatService != null) {
-                mCatService.dispose();
+                CatServiceFactory.disposeCatService(mSlotId);
             }
             mCatService = null;
         }
