@@ -203,7 +203,7 @@ public class UiccCard {
             }
         } else {
             if (mCatService != null) {
-                CatServiceFactory.disposeCatService(mSlotId);
+                mCatService.dispose();
             }
             mCatService = null;
         }
