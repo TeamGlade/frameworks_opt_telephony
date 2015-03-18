@@ -240,6 +240,7 @@ public class CatCmdMessage implements Parcelable {
 
     public SetupEventListSettings getSetEventList() {
         return mSetupEventListSettings;
+    }
 
     /**
      * API to be used by application to check if loading optional icon
